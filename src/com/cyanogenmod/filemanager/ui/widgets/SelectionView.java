@@ -87,7 +87,7 @@ public class SelectionView extends LinearLayout {
                     @Override
                     public void onGlobalLayout() {
                         SelectionView.this.mViewHeight = getHeight();
-                        getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        getViewTreeObserver().removeGlobalOnLayoutListener(this);
                         setVisibility(View.GONE);
                         LayoutParams params = (LayoutParams)SelectionView.this.getLayoutParams();
                         params.height = 0;

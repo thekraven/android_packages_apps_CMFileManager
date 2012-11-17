@@ -29,6 +29,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -307,21 +309,24 @@ public class NavigationActivity extends Activity
         //Initialize nfc adapter
         NfcAdapter mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mNfcAdapter != null) {
-            mNfcAdapter.setBeamPushUrisCallback(new NfcAdapter.CreateBeamUrisCallback() {
+
+            mNfcAdapter.setNdefPushMessageCallback(new NfcAdapter.CreateNdefMessageCallback() {
                 @Override
-                public Uri[] createBeamUris(NfcEvent event) {
+                public NdefMessage createNdefMessage(NfcEvent event) {
                     List<FileSystemObject> selectedFiles =
                             getCurrentNavigationView().getSelectedFiles();
                     if (selectedFiles.size() > 0) {
-                        List<Uri> fileUri = new ArrayList<Uri>();
+                        List<NdefRecord> fileUri = new ArrayList<NdefRecord>();
                         for (FileSystemObject f : selectedFiles) {
                             //Beam ignores folders and system files
                             if (!FileHelper.isDirectory(f) && !FileHelper.isSystemFile(f)) {
-                                fileUri.add(Uri.fromFile(new File(f.getFullPath())));
+                                fileUri.add(NdefRecord.createUri(
+                                       Uri.fromFile(new File(f.getFullPath()))
+                                ));
                             }
                         }
                         if (fileUri.size() > 0) {
-                            return fileUri.toArray(new Uri[fileUri.size()]);
+                            return new NdefMessage(fileUri.toArray(new NdefRecord[fileUri.size()]));
                         }
                     }
                     return null;
