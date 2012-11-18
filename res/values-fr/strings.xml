@@ -601,7 +601,7 @@
   <!-- Preferences * Search * Privacity category -->
   <string name="pref_search_privacity_category">Privé</string>
   <!-- Preferences * Search * Save search terms -->
-  <string name="pref_save_search_terms">Sauvergarder les termes de recherche</string>
+  <string name="pref_save_search_terms">Sauvegarder les termes de recherche</string>
   <!-- Preferences * Search * Save search terms summary on -->
   <string name="pref_save_search_terms_on">Les termes de recherche seront sauvegardés et seront suggérés dans les recherches futures</string>
   <!-- Preferences * Search * Save search terms summary off -->
